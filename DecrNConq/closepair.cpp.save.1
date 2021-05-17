@@ -1,0 +1,62 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+#define SIZE 10
+using namespace std;
+
+void init(int arr[]);
+void closestpair(int arr[], int, int, int, int, int);
+void print(int arr[], int, int, int);
+
+int cmp(const void * a, const void *b){
+	return(*(int *)a-*(int *)b);
+}
+
+int main(){
+	srand(time(NULL));
+	int arr[SIZE];
+	int dist=0;
+	int x;
+	int y;
+	int num;
+	int left=0;
+	int right=9;
+	init(arr);
+	qsort(arr, SIZE, sizeof(int), cmp);	
+	closestpair(arr,left,right,x,y,dist,count);
+	print(arr,x,y,dist);	
+	return 0;
+}
+
+void init(int arr[SIZE]){
+	for(int i=0;i<SIZE;i++){
+		arr[i]= 1+rand()%100;
+	}
+}
+
+void closestpair(int arr[], int left, int right, int  x, int  y, int dist){
+	if(left==right&&dist>(arr[right]-arr[left])){
+		x = arr[left];
+		y = arr[right];
+		dist = y-x; 
+	}else if(){
+		
+		num =arr[left];
+		dist=arr[left+1]-num;
+		x=arr[left];
+		y=arr[left+1];
+		closestpair(arr, left+1, right, x, y, dist, count); 
+		
+	}
+}
+
+void print(int arr[SIZE], int x, int y, int dist){
+	cout << "\nResults\n";
+	for(int i=0; i<SIZE;i++){
+		cout << arr[i]<<" ";
+	}
+	cout << "\nClosest Pair:\t\t(" << arr[x] << ","<< arr[y]<<")\n";
+	cout << "Distance:\t\t"<< dist<<endl;
+}

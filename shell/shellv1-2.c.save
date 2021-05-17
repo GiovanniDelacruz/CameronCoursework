@@ -1,0 +1,70 @@
+/********************************************************
+*	File name:	shell_v1-2.c
+*	Author:		C. Zhao
+*	Date:		Sept 2, 2020
+*	Class:		CS3513
+*			use gcc shellv1-2.c to compile
+*	Purpose:	Execute a command
+***************************************************** */
+
+#include <stdio.h> //for printf() and scanf()
+#include <string.h>//strlen(), strcpy(), strcmp()
+#include <unistd.h>//execl()
+#include <stdlib.h>//exit()
+#define SIZE 80
+int main()
+{
+	char cmd[SIZE]; //store cmd from kb
+	int i;
+	char* p; //points to path fetched from system
+	char *paths[SIZE];
+	char* temp;//store one path temp
+	p = getenv("PATH");
+
+	printf("\nPath info is %s\n", p);
+	//print path information
+	temp = strtok(p, ":");
+	i = 0;
+	while(temp)//parsing path into 2_d array
+	{
+		paths[i] = temp;//store temp to paths
+		printf("\n%s\n", temp);
+		i++;
+		temp = strtok(NULL, ":");
+	}
+	
+	for(;;) //service loop until the user quits
+	{
+		printf("\nMy Shell %s >>> ", getenv("HOME"));
+		scanf("%s", cmd); //read data
+		printf("\n Cmd is: %s", cmd);
+		printf("\t length is %d\n", strlen(cmd));
+	
+		if(strcmp(cmd, "exit") == 0)
+		{
+			printf("\n Goodbye \n");
+			exit(0);
+		}
+
+		if(fork() == 0)//child process
+		//load the task to it
+		{
+			int k;
+			for(k = 0; k < i; k++)
+			//go through all paths
+			{
+				char path[SIZE];
+				strcpy(path, paths[k]);
+				strcat(path, "/");
+				strcat(path, cmd);
+				execl(path, cmd, 0);
+			}
+			printf("\nCmd NOT FOUND\n");
+			exit(1);//terminate child process
+		}
+		else
+			wait();//wait for child process term
+		
+	}//end of for loop
+exit(0);
+} //end of main

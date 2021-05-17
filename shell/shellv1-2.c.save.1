@@ -1,0 +1,81 @@
+/********************************************************
+*	File name:		shell_v1-2.c
+*	Author:			Giovanni Delacruz
+*	Original author:	C. Zhao
+*	Date:			Sept 17, 2020
+*	Class:			CS3513
+*	Purpose:		Creates a shell that 
+*				
+***************************************************** */
+
+#include <stdio.h> //for printf() and scanf()
+#include <string.h>//strlen(), strcpy(), strcmp()
+#include <unistd.h>//execl()
+#include <stdlib.h>//exit()
+
+#define SIZE 80 //for command max input
+int main()
+{
+	char cmd[SIZE]; //store cmd from kb
+	char* argv[80
+	int argc;
+	char *token;
+	int i;
+	char* p; //points to path fetched from system
+	char *paths[SIZE];
+	char* temp;//store one path temp
+	p = getenv("PATH");
+	//print path information
+	temp = strtok(p, ":");
+	i = 0;
+	while(temp)//parsing path into 2_d array
+	{
+		paths[i] = temp;//store temp to paths
+		i++;
+		temp = strtok(NULL, ":");
+	}
+	
+	for(;;) //service loop until the user quits
+	{
+		printf("\nMYSHELL >>");
+		//scanf("%s", cmd); //read data
+		fgets(cmd, 80, stdin);
+		cmd[strlen(cmd)-1]= '\0';		
+		if(strcmp(cmd, "exit") == 0)
+		{
+			printf("\nGoodbye\n");
+			exit(0);
+		}
+		//experimental
+		token = strtok(cmd, " ");
+		int k=0;
+		while(token!=NULL){
+			argv[k]=token;
+			token = strtok(NULL, " ");
+			k++;
+		}
+		argv[k]=NULL;
+		argc = k;
+		//end of experimental
+		if(fork() == 0)//child process
+		//load the task to it
+		{
+			int k;
+			for(k = 0; k < i; k++)
+			//go through all paths
+			{
+				char path[SIZE];
+				strcpy(path, paths[k]);
+				strcat(path, "/");
+				strcat(path, argv[0]);
+				execvp(path, argv);
+			}
+			printf("\nCOMMAND NOT FOUND, TRY AGAIN\n");
+			exit(1);//terminate child process
+		}
+		else
+			wait();//wait for child process term
+		
+	}//end of for loop
+exit(0);
+} //end of main

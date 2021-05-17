@@ -1,0 +1,35 @@
+#include <iostream>
+//#include "binaryhex.h"
+
+using namespace std;
+
+void generate_bin_string(int s[], int n, int SIZE){
+	while (SIZE>=0){
+		s[SIZE-1]=n%2;
+		n=n/2;
+		SIZE--;
+	}
+	SIZE=8;
+
+}
+
+void print_binary(int s[], int n, int SIZE){ 
+	
+		while(n!=SIZE){
+			cout << s[n];
+			n++;
+			if(n==4){
+			cout << " ";
+		}
+		}
+		n=0;
+		cout<< endl;
+}
+
+void convert_bin_hex(int s[], int n, int SIZE){
+
+}
+
+void print_hex(string s, int start, int end){
+
+}
