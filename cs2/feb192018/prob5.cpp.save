@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class ZipCode{
+
+private:
+int zip;
+String barCode;
+
+String one = "00011";
+String two = "00101";
+String thr = "00110";
+String for = "01001";
+String fiv = "01010";
+String six = "01100";
+String svn = "10001";
+String eit = "10010";
+String nin = "10100";
+String ten = "11000"; //1,6,11,16,21
+int decode(int num)
+	{
+	for(int i = ; i < 
+	}
+String encode(int num)
+	{
+	
+	}
+public:
+
+int getzip()
+	{
+	return zip;
+	}
+String getBar()
+	{
+	return barCode;
+	}
+
+ZipCode(String bar)
+	{
+	
+	}
+
+ZipCode(int zipAddr)
+	{
+	
+	}
+};

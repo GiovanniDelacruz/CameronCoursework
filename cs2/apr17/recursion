@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+
+void RecursiveCall(int num){
+	if(number/10 < 1){
+		cout << num;	
+	}else{
+		RecursiveCall(num/10);
+		cout << num % 10 << endl;
+	}
+}
+
+
+int main(){
+	int number;
+	cout << "Enter a number to be numerically broken down: ";
+	cin >> number; 
+	
+	RecursiveCall(number);
+
+	return 0;	
+}
