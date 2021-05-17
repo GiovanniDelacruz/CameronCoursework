@@ -1,0 +1,2 @@
+# CameronCoursework
+This is a compilation of all projects that I have written and completed during my undergradutate studies at Cameron University. Some are simple c++ programs, others include programs from network socket communications, matrix multiplication using threads, or even an aircraft simulation/other simulations that use stacks, queues, linked-lists, and other structures/algorithms. All code added in this repository should be written in c++/c.
